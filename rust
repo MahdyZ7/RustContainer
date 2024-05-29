@@ -1,0 +1,23 @@
+#!/bin/bash
+
+con_name=rust_container
+docker ps > /dev/null 2>&1
+if [ ! $? -eq 0 ]; then
+	open -a docker
+fi
+
+while true; do
+	docker ps > /dev/null 2>&1
+	if [ $? -eq 0 ]; then
+		break;
+	else
+		echo "waiting for docker to start"
+		sleep 1
+	fi
+done
+
+if [ ! "$(docker images -a |  grep $con_name )" ]; then
+	docker build . -t $con_name
+fi
+
+docker run -it --rm -v "$PWD:/home/Developer" $con_name
