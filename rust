@@ -1,7 +1,8 @@
 #!/bin/bash
 
 con_name=rust_container
-rust_path=$(which rust)
+full_rust_path=$(which rust)
+rust_path="${full_rust_path%/*}"
 
 docker ps > /dev/null 2>&1
 if [ ! $? -eq 0 ]; then
@@ -19,7 +20,7 @@ while true; do
 done
 
 if [ ! "$(docker images -a |  grep $con_name )" ]; then
-	docker build rust_path -t $con_name
+	docker build $rust_path -t $con_name
 fi
 
 docker run -it --rm -v "$PWD:/home/Developer" $con_name
