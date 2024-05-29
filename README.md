@@ -4,7 +4,7 @@ Run a temporary rust continer mounted to your current directory any where in you
 
 **How to Install**
 To install, run the command
-```
+```sh
 bash install.sh
 ```
 
