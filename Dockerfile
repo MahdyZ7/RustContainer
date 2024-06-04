@@ -8,4 +8,5 @@
 
 
 FROM rust:1-alpine3.20
+RUN apk add --no-cache --update curl git
 WORKDIR /home/Developer
